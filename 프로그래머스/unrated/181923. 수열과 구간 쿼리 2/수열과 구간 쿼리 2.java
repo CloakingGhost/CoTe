@@ -8,13 +8,13 @@ class Solution {
 			s = query[0];
 			e = query[1];
 			k = query[2];
-			int minValue = Integer.MAX_VALUE; // Key Point
+			int minValue = 1_000_001; // Key Point
 			for (int j = s; j <= e; j++) {
 				if (arr[j] > k && arr[j] < minValue) {
 					minValue = arr[j];
 				}
 			}
-			if (minValue == Integer.MAX_VALUE)
+			if (minValue == 1_000_001)
 				minValue = -1;
 			answer[i] = minValue;
 
