@@ -16,13 +16,15 @@ class Solution {
 		case 1:
 			return 1111 * a;
 		case 2:
+			int n1, n2;
 			for (int i = 0; i < 3; i++) {
-				int n1 = arr[i], n2 = arr[i + 1];
+				n1 = arr[i]; n2 = arr[i + 1];
+                
 				if (n1 != n2) {
 					if (i == 1)
 						return (n1 + n2) * Math.abs(n1 - n2);
 					else if (i == 0)
-						return (int) Math.pow(10 * n2 + n1, 2); //
+						return (int) Math.pow(10 * n2 + n1, 2);
 					return (int) Math.pow(10 * n1 + n2, 2);
 				}
 			}
