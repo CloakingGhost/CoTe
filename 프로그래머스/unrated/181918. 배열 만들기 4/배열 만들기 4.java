@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 class Solution {
-    public int[] solution(int[] arr) {
+    public Stack<Integer> solution(int[] arr) {
 		Stack<Integer> stk = new Stack<>();
 		int length = arr.length;
 		int i = 0;
@@ -14,11 +14,6 @@ class Solution {
 				stk.pop();
 			}
 		}
-		int size = stk.size();
-		int[] answer = new int[size];
-		for (int j = size - 1; j >= 0; j--) {
-			answer[j] = stk.pop();
-		}
-		return answer;
+		return stk;
     }
 }
