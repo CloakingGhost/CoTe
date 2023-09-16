@@ -1,10 +1,10 @@
 # [unrated] 5명씩 - 181886 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181886) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181886?language=java) 
 
 ### 성능 요약
 
-메모리: 75.1 MB, 시간: 0.02 ms
+메모리: 70.9 MB, 시간: 0.01 ms
 
 ### 구분
 
