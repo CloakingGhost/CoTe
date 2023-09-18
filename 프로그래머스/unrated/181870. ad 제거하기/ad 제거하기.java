@@ -1,23 +1,17 @@
+
+import java.util.ArrayList;
 class Solution {
-	public String[] solution(String[] strArr) {
-		int len = strArr.length;
-		int idx = 0;
-		int cnt = len;
-		for (String str : strArr) {
-			if (str.contains("ad")) {
-				strArr[idx] = "";
-				cnt--;
-			}
-			idx++;
-		}
-		String[] answer = new String[cnt--];
+   public String[] solution(String[] strArr) {
+        ArrayList<String> arrayList = new ArrayList<>();
 
-		for (int i = len - 1; i >= 0; i--) {
+        for (String str : strArr)
+            if (!str.contains("ad"))
+                arrayList.add(str);
 
-			if (!strArr[i].isBlank()) {
-				answer[cnt--] = strArr[i];
-			}
-		}
-		return answer;
-	}
+        int idx = 0;
+        String[] answer = new String[arrayList.size()];
+        for (String str : arrayList)
+            answer[idx++] = str;
+        return answer;
+    }
 }
