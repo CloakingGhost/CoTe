@@ -1,28 +1,21 @@
-import java.util.*;
+import java.util.Arrays;
 class Solution {
-    public int[] solution(int n, int[] slicer, int[] num_list) {
-        List<Integer> list = new ArrayList<>();
-        int a = slicer[0];
-        int b = slicer[1];
-        int c = slicer[2];
-        if(n == 1) {
-            for(int i =0; i<b+1; i++) {
-                list.add(num_list[i]);
-            }
-        }else if(n == 2) {
-            for(int i = a; i<num_list.length; i++) {
-                list.add(num_list[i]);
-            }
-        }else if(n ==3) {
-            for(int i = a; i<b+1; i++) {
-                list.add(num_list[i]);
-            }
-        }else if(n == 4) {
-            for(int i = a; i<b+1; i+=c) {
-                list.add(num_list[i]);
-
-            }
-        }
-        int[] answer = list.stream().mapToInt(x -> x).toArray();
-        return answer;
-    }}
+	public int[] solution(int n, int[] slicer, int[] num_list) {
+		int a = slicer[0], b = slicer[1] + 1, c = slicer[2];
+		int[] answer = {};
+		switch (n) {
+		case 1:
+			return Arrays.copyOf(num_list, b);
+		case 2:
+			return Arrays.copyOfRange(num_list, a, num_list.length);
+		case 3:
+			return Arrays.copyOfRange(num_list, a, b);
+		case 4:
+			int len = (b - 1 - a) / c + 1;
+			answer = new int[len];
+			for (int i = 0; i < len; i++)
+				answer[i] = num_list[a + i * c];
+		}
+		return answer;
+	}
+}
