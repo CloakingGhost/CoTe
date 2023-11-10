@@ -1,9 +1,11 @@
 class Solution {
 	public int solution(int num) {
-        if (num == 1) return 0;
 		int answer = -1;
 		int cnt = 0;
-		while (cnt++ < 501) {
+		while (cnt < 501) {
+            if (num == 1) {
+				return cnt;
+			}
 			switch (num % 2) {
 			case 0:
 				num /= 2;
@@ -13,9 +15,7 @@ class Solution {
 				num++;
 				break;
 			}
-			if (num == 1) {
-				return cnt;
-			}
+            cnt++;
 		}
 		return answer;
 	}
