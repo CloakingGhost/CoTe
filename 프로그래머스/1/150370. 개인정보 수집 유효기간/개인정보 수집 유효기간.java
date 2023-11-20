@@ -1,44 +1,33 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class Solution {
-	public int[] solution(String today, String[] terms, String[] privacies) throws ParseException {
-		SimpleDateFormat dform = new SimpleDateFormat("yyyy.MM.dd");
-		Date nowday = dform.parse(today);
-		HashMap<String, Integer> map = new HashMap<>();
-		for (int i = 0; i < terms.length; i++) {
-			String[] str = terms[i].split(" ");
-			map.put(str[0], Integer.parseInt(str[1]));
-		}
-		ArrayList<Integer> arr = new ArrayList<>();
-		for (int i = 0; i < privacies.length; i++) {
-			String[] str = privacies[i].split(" ");
-			String agreeDay = str[0];
-			int month = map.get(str[1]);
+    public int[] solution(String today, String[] terms, String[] privacies) {
+        List<Integer> answer = new ArrayList<>();
+        Map<String, Integer> termMap = new HashMap<>();
+        int date = getDate(today);
 
-			if (nowday.compareTo(calDate(agreeDay, month)) == 1)
-				arr.add(i + 1);
-		}
-		int size = arr.size();
-		int[] answer = new int[size];
-		for (int i = 0; i < size; i++) {
-			answer[i] = arr.get(i);
-		}
-		return answer;
-	}
+        for (String s : terms) {
+            String[] term = s.split(" ");
 
-	private static Date calDate(String agreeDay, int month) throws ParseException {
-		SimpleDateFormat dform = new SimpleDateFormat("yyyy.MM.dd");
-		Calendar cal = Calendar.getInstance();
-		Date dt = dform.parse(agreeDay);
-		cal.setTime(dt);
-		cal.add(Calendar.MONTH, month);
-		cal.add(Calendar.DATE, -1);
-		return cal.getTime();
-	}
+            termMap.put(term[0], Integer.parseInt(term[1]));
+        }
+        for (int i = 0; i < privacies.length; i++) {
+            String[] privacy = privacies[i].split(" ");
+
+            if (getDate(privacy[0]) + (termMap.get(privacy[1]) * 28) <= date) {
+                answer.add(i + 1);
+            }
+        }
+        return answer.stream().mapToInt(integer -> integer).toArray();
+    }
+
+    private int getDate(String today) {
+        String[] date = today.split("\\.");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+        return (year * 12 * 28) + (month * 28) + day;
+    }
 }
