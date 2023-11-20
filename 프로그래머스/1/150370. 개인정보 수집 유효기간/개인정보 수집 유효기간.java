@@ -1,33 +1,36 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Solution {
-    public int[] solution(String today, String[] terms, String[] privacies) {
-        List<Integer> answer = new ArrayList<>();
-        Map<String, Integer> termMap = new HashMap<>();
-        int date = getDate(today);
+	public int[] solution(String today, String[] terms, String[] privacies) {
+		int nowday = converter(today, 0);
 
-        for (String s : terms) {
-            String[] term = s.split(" ");
+		HashMap<String, Integer> map = new HashMap<>();
+		for (int i = 0; i < terms.length; i++) {
+			String[] str = terms[i].split(" ");
+			map.put(str[0], Integer.parseInt(str[1]));
+		}
+		ArrayList<Integer> arr = new ArrayList<>();
+		for (int i = 0; i < privacies.length; i++) {
+			String[] str = privacies[i].split(" ");
+			String agreeDay = str[0];
+			int month = map.get(str[1]);
 
-            termMap.put(term[0], Integer.parseInt(term[1]));
-        }
-        for (int i = 0; i < privacies.length; i++) {
-            String[] privacy = privacies[i].split(" ");
+			if (nowday > converter(agreeDay, month) - 1)
+				arr.add(i + 1);
+		}
+		int size = arr.size();
+		int[] answer = new int[size];
+		for (int i = 0; i < size; i++) {
+			answer[i] = arr.get(i);
+		}
+		return answer;
+	}
 
-            if (getDate(privacy[0]) + (termMap.get(privacy[1]) * 28) <= date) {
-                answer.add(i + 1);
-            }
-        }
-        return answer.stream().mapToInt(integer -> integer).toArray();
-    }
-
-    private int getDate(String today) {
-        String[] date = today.split("\\.");
-        int year = Integer.parseInt(date[0]);
-        int month = Integer.parseInt(date[1]);
-        int day = Integer.parseInt(date[2]);
-        return (year * 12 * 28) + (month * 28) + day;
-    }
+	private static int converter(String day, int policy) {
+		String[] str = day.split("[.]");
+		int sum = Integer.parseInt(str[0]) * 12 * 28 + (Integer.parseInt(str[1]) + policy) * 28
+				+ Integer.parseInt(str[2]);
+		return sum;
+	}
 }
