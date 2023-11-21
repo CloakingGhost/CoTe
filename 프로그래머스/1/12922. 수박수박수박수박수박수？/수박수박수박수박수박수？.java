@@ -1,12 +1,8 @@
 class Solution {
 	public String solution(int n) {
-		char[] chars = new char[n];
-		for (int i = 0; i < n / 2; i++) {
-			chars[2 * i] = '수';
-			chars[2 * i + 1] = '박';
-		}
-		if (n % 2 == 1)
-			chars[n - 1] = '수';
-		return String.valueOf(chars);
+		StringBuffer sf = new StringBuffer();
+		for (int i = 0; i < n; ++i) 
+			sf.append(i % 2 == 0 ? "수" : "박");
+		return sf.toString();
 	}
 }
