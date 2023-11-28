@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.Comparator;
 class Solution {
 	public int[][] solution(int[][] data, String ext, int val_ext, String sort_by) {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -21,7 +22,13 @@ class Solution {
 		for (int i = 0; i < size; i++) {
 			answer[i] = Arrays.copyOf(data[arr.get(i)], data[arr.get(i)].length);
 		}
-		sort(answer, sortIdx);
+		Arrays.sort(answer, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] s1, int[] s2) {
+				return s1[sortIdx] - s2[sortIdx];
+			}
+		});
+		// sort(answer, sortIdx);
 		return answer;
 	}
 
