@@ -1,16 +1,20 @@
-import java.util.Arrays;
+import java.util.*;
 class Solution {
     public int solution(int[][] lines) {
-        int[] cnts = new int[201]; 
-        for (int[] line : lines) {
-            ++cnts[line[0] + 100];
-            --cnts[line[1] + 100];
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int[] line : lines) {// 직선 하나 가져온다(좌표값)
+            for (int i = line[0]; i < line[1]; i++) { // 좌표 시작값 부터 끝값 직전까지 맵에 넣기
+                map.put(i, map.getOrDefault(i, 0) + 1);
+            }
         }
-        int answer = cnts[0] > 1 ? 1 : 0;
-        for (int i = 1; i < 201; ++i) {
-            cnts[i] += cnts[i - 1];
-            if (cnts[i] > 1) ++answer;
-        }
-        return answer;
+//        아래 스트림 대신 가능
+//        int answer = 0;
+//        for (int v : map.values()) {
+//            if (v > 1) {
+//                answer++;
+//            }
+//        }
+//        return answer;
+        return (int) map.values().stream().filter(v -> v > 1).count(); // 2 이상인 값들을 카운트
     }
 }
