@@ -1,14 +1,13 @@
 class Solution {
     public int[] solution(int num, int total) {
         int[] answer = new int[num];
-        for (int i = total; i > Integer.MIN_VALUE; i--) {
-            int sum = 0;
-            for (int j = 0; j < num; j++) {
-                answer[j] = i + j;
-                sum += i + j;
-            }
-            if (sum == total) break;
+        int start = (total / num) - ((num - 1) / 2); // 중앙값(평균값) - 좌우 이격
+
+        for (int i = 0; i < num; i++) {
+            answer[i] = start;
+            start++;
         }
+
         return answer;
     }
 }
