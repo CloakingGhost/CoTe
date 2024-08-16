@@ -10,7 +10,7 @@ class Solution {
     }
 
     public float slope(int[] dot1, int[] dot2) {
-        return (float) (dot2[1] - dot1[1]) / (dot2[0] - dot1[0]);
+        return (float) (dot2[0] - dot1[0]) / (dot2[1] - dot1[1]);
     }
 
     private boolean isParallel(float slope1, float slope2) {
