@@ -3,7 +3,7 @@ class Solution {
         int answer = numbers[0];
         int turn = 0;
         for(int i = 1; i <= k; i++){
-            answer = numbers[turn % numbers.length];
+            answer = numbers[turn];
             turn = (turn + 2) % numbers.length;
             
         }
