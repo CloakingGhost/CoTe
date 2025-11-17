@@ -1,36 +1,24 @@
-import sys, math
+import sys
 
 n = int(sys.stdin.readline())
 
+MAX_NUM = 1_100_000
 
-def isPrime(target):
-    if target < 2:
-        return False
-    if target == 2 or target == 3:
-        return True
-    if target % 2 == 0 or target % 3 == 0:
-        return False
+is_prime = [True] * (MAX_NUM + 1)
+is_prime[0] = is_prime[1] = False
 
-    sqrt_target = math.ceil(math.sqrt(target))
-
-    for num in range(5, sqrt_target):
-        if target % (num - 1) == 0 or target % (num + 1) == 0:
-            return False
-    return True
+for i in range(2, int(MAX_NUM**0.5) + 1):
+    if is_prime[i]:
+        # i*i 부터 i의 배수들을 모두 False로 변경
+        for j in range(i * i, MAX_NUM + 1, i):
+            is_prime[j] = False
 
 
-def isPalindrome(number):
-    if number < 2:
-        return False
-
-    str_num = str(number)
-    if str_num == str_num[::-1]:
-        return True
-    
-    return False
+def is_palindrome(num_str):
+    return num_str == num_str[::-1]
 
 
 for num in range(n, sys.maxsize):
-    if isPrime(num) and isPalindrome(num):
+    if is_prime[num] and is_palindrome(str(num)):
         print(num)
         break
