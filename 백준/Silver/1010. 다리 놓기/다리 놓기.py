@@ -1,38 +1,24 @@
 import sys
 
-sys.setrecursionlimit(5000)
 input = sys.stdin.readline
-
-# 1. 오버플로우 방지 2. 값 재사용
+t = int(input())
 dp = [[0] * 30 for _ in range(30)]
 
 
-def combinations(M, N):
-
-    # 0! == 1
-    if N == 0 or N == M:
+def combinations(m, n):
+    if n == 0 or n == m:
         return 1
+    if n == 1 or n == m - 1:
+        return m
+    if dp[m][n]:
+        return dp[m][n]
 
-    # 1개만 뽑는 경우
-    if N == 1 or N == M - 1:
-        return M
-
-    # 값 재사용
-    if dp[M][N] != 0:
-        return dp[M][N]
-
-    # 조합, 재귀
-    dp[M][N] = combinations(M - 1, N - 1) + combinations(M - 1, N)
-
-    return dp[M][N]
-
-
-
-T = int(input().strip())
-
-for _ in range(T):
-
-    line = input().strip()
-    N, M = map(int, line.split())
+    dp[m][n] = combinations(m - 1, n - 1) + combinations(m - 1, n)
     
-    print(combinations(M, N))
+    return dp[m][n]
+
+
+for _ in range(t):
+    n, m = map(int, input().split())
+
+    print(combinations(m, n))
