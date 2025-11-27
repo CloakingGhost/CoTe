@@ -1,5 +1,3 @@
-# https://www.acmicpc.net/problem/20922
-# 겹치는 건 싫어
 from collections import defaultdict
 import sys
 
@@ -9,18 +7,14 @@ n, k = map(int, input().split())
 numbers = list(map(int, input().split()))
 counter = defaultdict(int)
 
-left, right = 0, 0
+left = 0
 answer = 0
-while right < n:
-    if counter[numbers[right]] + 1 > k:
-        answer = max(answer, sum(counter.values()))
-        while counter[numbers[right]] + 1 > k:
-            counter[numbers[left]] -= 1
-            left += 1
 
-    counter[numbers[right]] += 1
-    right += 1
-
-answer = max(answer, sum(counter.values()))
+for right, val in enumerate(numbers):
+    counter[val] += 1
+    while counter[val] > k:
+        counter[numbers[left]] -= 1
+        left += 1
+    answer = max(answer, right - left + 1)
 
 print(answer)
