@@ -6,7 +6,7 @@ n, x = map(int, input().split())
 visited = list(map(int, input().split()))
 
 left, right = -1, x - 1
-temp = max_visited = max(0, sum(visited[:x]))
+temp = max_visited = sum(visited[:x])
 cnt = 1
 
 while right + 1 < n:
