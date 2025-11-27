@@ -13,8 +13,7 @@ while right + 1 < n:
     left += 1
     right += 1
 
-    temp -= visited[left]
-    temp += visited[right]
+    temp += visited[right] - visited[left]
 
 
     if max_visited < temp:
