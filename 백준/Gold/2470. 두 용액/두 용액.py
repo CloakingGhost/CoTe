@@ -5,19 +5,22 @@ input = sys.stdin.readline
 n = int(input())
 solutions = list(map(int, input().split()))
 solutions.sort()
+answer = (0, 0)
+
 
 left, right = 0, n - 1
-best = 10**18
-ans = (0, 0)
-
+tmp = float("INF")
 while left < right:
-    s = solutions[left] + solutions[right]
-    if abs(s) < best:
-        best = abs(s)
-        ans = (solutions[left], solutions[right])
-    if s > 0:
+    current = solutions[left] + solutions[right]
+    if abs(current) < tmp:
+        tmp = abs(current)
+        answer = (solutions[left], solutions[right])
+    
+    if current < 0:
+        left += 1
+    elif current > 0:
         right -= 1
     else:
-        left += 1
-
-print(ans[0], ans[1])
+        answer = (solutions[left], solutions[right])
+        break
+print(*answer)
