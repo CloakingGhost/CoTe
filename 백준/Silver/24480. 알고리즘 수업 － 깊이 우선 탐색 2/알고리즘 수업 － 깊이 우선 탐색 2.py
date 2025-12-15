@@ -1,45 +1,35 @@
-from sys import stdin,setrecursionlimit
-input = stdin.readline
+# https://www.acmicpc.net/problem/24480
+# 알고리즘 수업 - 깊이 우선 탐색 2
 
+import sys
 
+input = sys.stdin.readline
 
-count = 0
-def dfs(graph, visited, start):
-    global count
-    count+=1
-    visited[start] = count
-    for i in graph[start]: # 그래프 집합에서
-        if visited[i] == False: #방문하지 않은 경우,
-            
-            dfs(graph, visited, i)
+n, m, r = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
 
+for _ in range(m):
+    s, e = map(int, input().split())
+    graph[s].append(e)
+    graph[e].append(s)
 
-# 입력 #
-N, M, R = map(int, input().split())
-setrecursionlimit(N+10) # 재귀 깊이 늘리기
-#---1번 정점부터 시작한다. --#
-# 방문한 곳
-visited = [False] * (N+1)
-#그래프 ( 정점 집합)
-graph = [[]for i in range(N+1)]
+for edge in graph:
+    edge.sort()
 
-# -- 연결하기 -- #
-for i in range(M): # 간선의 수 만큼 반복
-    u,v = map(int, input().split()) # u,v 입력받기
-    graph[u].append(v) # u,v 서로 연결
-    graph[v].append(u) # u,v 서로 연결
+count = 1
+stack = [r]
+answer = [0] * (n + 1)
 
-# -- 내림차순 정렬 -- #
-for i in range(1,N+1):
-    graph[i].sort(reverse=True)
+while stack:
+    node = stack.pop()
+    
+    if answer[node] == 0:
+        answer[node] = count
+        count += 1
 
+        for next_node in graph[node]:
+            if answer[next_node] == 0:
+                stack.append(next_node)
 
-# -- dfs -- #
-dfs(graph, visited, R)
-
-
-for i in range(1, N+1):
-    if visited[i] != False :
-        print(visited[i])
-    else:
-        print(0)
+for ans in answer[1:]:
+    print(ans)
