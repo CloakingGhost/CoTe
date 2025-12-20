@@ -30,7 +30,7 @@ def dfs(wall_count, start):
     for i in range(start, INIT_EMPTY_COUNT):
         y, x = empty_pos[i]
 
-        matrix[y][x] = VIRUS
+        matrix[y][x] = WALL
         safe_count = dfs(wall_count + 1, i + 1)
         max_safe_count = max(max_safe_count, safe_count)
         matrix[y][x] = EMPTY
