@@ -20,7 +20,7 @@ def change_black(dash, s, length):
 for line in sys.stdin:
     N = int(line)
     length = 3**N
-    dash = list("-" * length)
+    dash = ["-"] * length
 
     change_black(dash, 0, length)
     print("".join(dash))
