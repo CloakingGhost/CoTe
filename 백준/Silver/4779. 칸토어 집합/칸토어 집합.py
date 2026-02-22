@@ -2,8 +2,6 @@
 
 import sys
 
-input = sys.stdin.readline
-
 
 def change_black(dash, s, length):
     if length == 1:
