@@ -35,7 +35,7 @@ commands = tuple(map(lambda x: int(x) - 1, input().split()))
 dr, dc = [0, 0, -1, 1], [1, -1, 0, 0]
 
 
-def roll(command, dice):
+def roll(command: int, dice: list[int]):
     if command == 0:
         dice[5], dice[2], dice[0], dice[4] = dice[2], dice[0], dice[4], dice[5]
     elif command == 1:
