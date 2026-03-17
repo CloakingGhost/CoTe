@@ -16,24 +16,20 @@ input = sys.stdin.readline
 # 감독관 수의 최솟값
 
 
-# 1개의 시험장에 필요한 감독관 수 * n
 n = int(input())
 a = list(map(int, input().split()))
 b, c = map(int, input().split())
 proctors = 0
 
 for examinee in a:
-    proctor = 1
-    tmp = examinee
-    tmp -= b
-    
-    if tmp > 0:
-        proctor += tmp // c
-        tmp %= c
+    proctors += 1
+    remain = examinee - b
 
-        if tmp:
-            proctor += 1
-    proctors += proctor
+    if remain > 0:
+        proctors += (remain + c - 1) // c
+
+            
+
 
 
 print(proctors)
