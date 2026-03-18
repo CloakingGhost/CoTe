@@ -36,8 +36,8 @@ def dfs(
     # 남은 길을 최대값으로 가정하고 진출할 경우
     # max_num 보다 작거나 같다면 더이상 진행하지 않음
     ## 즉, max_num 보다 큰 값을 기대할 수 없는 경우
-    # if sum_paper_num + max_val * (4 - count) <= max_num:
-    #     return
+    if sum_paper_num + max_val * (4 - count) <= max_num:
+        return
 
     if count == 4:
         max_num = max(max_num, sum_paper_num)
