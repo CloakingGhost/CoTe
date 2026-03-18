@@ -33,7 +33,7 @@ def dfs(
     visited: list[list[bool]],
 ):
     global max_num
-    if count == 4 : 
+    if count == 4:
         if sum_paper_num > max_num:
             max_num = sum_paper_num
         return
@@ -53,23 +53,32 @@ for i in range(1, n + 1):
     paper[i][1 : m + 1] = list(map(int, input().split()))
 visited = [[False] * (m + 2) for _ in range(n + 2)]
 max_num = -1
+
+# T자 블럭
+# for r in range(1, n + 1):
+#     for c in range(1, m + 1):
+#         up, down, left, right = (
+#             paper[r - 1][c],
+#             paper[r + 1][c],
+#             paper[r][c - 1],
+#             paper[r][c + 1],
+#         )
+#         up_block = up + left + right + paper[r][c]
+#         down_block = down + left + right + paper[r][c]
+#         left_block = left + up + down + paper[r][c]
+#         right_block = right + up + down + paper[r][c]
+#         # r, c / r - 1, c / r + 1, c / r, c - 1 / r, c + 1
+#         max_num = max(max_num, up_block, down_block, left_block, right_block)
+
 for r in range(1, n + 1):
     for c in range(1, m + 1):
-        up, down, left, right = (
-            paper[r - 1][c],
-            paper[r + 1][c],
-            paper[r][c - 1],
-            paper[r][c + 1],
-        )
-        up_block = up + left + right + paper[r][c]
-        down_block = down + left + right + paper[r][c]
-        left_block = left + up + down + paper[r][c]
-        right_block = right + up + down + paper[r][c]
-        # r, c / r - 1, c / r + 1, c / r, c - 1 / r, c + 1
-        max_num = max(max_num, up_block, down_block, left_block, right_block)
-for r in range(1, n + 1):
-    for c in range(1, m + 1):
+        # T자 블럭
+        adjacent = [paper[r - 1][c], paper[r + 1][c], paper[r][c - 1], paper[r][c + 1]]
+        max_num = max(paper[r][c] + sum(adjacent) - min(adjacent), max_num)
+
+        # 나머지 블럭
         visited[r][c] = True
         dfs(paper[r][c], 1, r, c, paper, visited)
         visited[r][c] = False
+
 print(max_num)
