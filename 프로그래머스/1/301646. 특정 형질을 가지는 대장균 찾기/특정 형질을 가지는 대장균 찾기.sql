@@ -2,4 +2,4 @@
 
 select count(id)
 from ECOLI_DATA 
-where  not(GENOTYPE & 2) and (GENOTYPE & 1 or GENOTYPE & 4);
+where  !(GENOTYPE & 2) && GENOTYPE & 5;
