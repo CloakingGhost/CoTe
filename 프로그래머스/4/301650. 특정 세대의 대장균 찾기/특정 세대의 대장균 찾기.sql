@@ -1,0 +1,18 @@
+WITH RECURSIVE ECOLI_GEN AS (
+    -- 1. Anchor: 1세대 찾기 (부모가 없는 개체)
+    SELECT ID, PARENT_ID, 1 AS GENERATION
+    FROM ECOLI_DATA
+    WHERE PARENT_ID IS NULL
+    
+    UNION ALL
+    
+    -- 2. Recursive: 부모와 자식을 연결하며 세대 + 1
+    SELECT e.ID, e.PARENT_ID, g.GENERATION + 1
+    FROM ECOLI_DATA e
+    INNER JOIN ECOLI_GEN g ON e.PARENT_ID = g.ID
+)
+-- 3. 3세대만 필터링
+SELECT ID
+FROM ECOLI_GEN
+WHERE GENERATION = 3
+ORDER BY ID;
